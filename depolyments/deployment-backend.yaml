@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: Todo-Backend
+  labels:
+    app: Backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: Backend
+  template:
+    metadata:
+      labels:
+        app: Backend
+    spec:
+      containers:
+      - name: Backend
+        image: todo-backend:v1
+        ports:
+        - containerPort: 3000

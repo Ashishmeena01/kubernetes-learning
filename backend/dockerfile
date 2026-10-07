@@ -1,0 +1,19 @@
+FROM oven/bun:latest AS dev
+
+WORKDIR /app
+
+COPY . .
+
+RUN bun install
+
+FROM oven/bun:latest AS prod
+
+WORKDIR /app
+COPY --from=dev /app .
+COPY --from=dev /app/node_modules ./node_modules
+EXPOSE 3000
+CMD ["bun", "run", "index.ts"]
+
+
+
+

@@ -1,0 +1,18 @@
+FROM oven/bun:latest AS dev
+
+WORKDIR /app
+COPY . .
+RUN bun install
+RUN bun run build
+
+
+
+FROM nginx:alpine AS prod
+
+COPY --from=dev /app/dist /usr/share/nginx/html
+
+# Expose port 80 to the outside world
+EXPOSE 80
+
+# Start Nginx in the foreground
+CMD ["nginx", "-g", "daemon off;"]

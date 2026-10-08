@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 
+const API_URL = "/api"
+
+
 function TodoCard({ todo }: { todo: { id: number, title: string, completed: boolean } }) {
   return (
     <div className="bg-gray-700 shadow-md rounded p-4 mb-4">
@@ -15,7 +18,7 @@ function AddTodoForm() {
   const [title, setTitle] = useState("")
 
   function onAdd(title: string) {
-    fetch("http://localhost:3000/api/todos", {
+    fetch(`${API_URL}/todos`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -56,7 +59,7 @@ function App(){
   }> | null>(null)
 
   function fetchTodos() {
-    fetch("http://localhost:3000/api/todos")
+    fetch(`${API_URL}/todos`)
       .then((response) => response.json())
       .then((data) => setTodo(data))
       .catch((error) => console.error("Error fetching todos:", error));
